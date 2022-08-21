@@ -1,5 +1,6 @@
 package com.crimsonreborn.crimsonutils;
 
+import com.crimsonreborn.crimsonutils.block.ModBlocks;
 import com.crimsonreborn.crimsonutils.item.ModItems;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -23,6 +24,7 @@ public class CrimsonUtils {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
