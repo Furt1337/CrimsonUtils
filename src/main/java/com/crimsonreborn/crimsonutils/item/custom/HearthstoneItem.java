@@ -1,5 +1,6 @@
 package com.crimsonreborn.crimsonutils.item.custom;
 
+import com.crimsonreborn.crimsonutils.db.Waypoint;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -20,54 +21,33 @@ public class HearthstoneItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if(!level.isClientSide() && hand == InteractionHand.MAIN_HAND) {
-            outputRandomNumber(player);
-            player.getCooldowns().addCooldown(this, 20);
+            Waypoint h = new Waypoint(player, "home", Waypoint.Waypoints.HOME);
+
+            if (player.isCrouching()) {
+                h.setWaypoint();
+                player.sendSystemMessage(Component.literal("Home location is set."));
+            } else {
+                // TODO send to save home location or warn if null
+                if (h != null) {
+                    player.setPos(h.getWaypoint().getX(), h.getWaypoint().getY(), h.getWaypoint().getZ());
+
+                    /*
+                     * Ticks = minutes * seconds * ticks/per second
+                     *  TODO minutes will be in settings
+                     */
+                    int ticks = 5 * 60 * 20;
+                    player.getCooldowns().addCooldown(this, ticks);
+
+                    player.sendSystemMessage(Component.literal("Teleporting to home location."));
+                } else {
+                    player.sendSystemMessage(Component.literal("Home location is not set."));
+                    player.sendSystemMessage(Component.literal("To set home hold shift and right click."));
+                }
+
+            }
+            h.destroy();
         }
 
         return super.use(level, player, hand);
     }
-
-    private void outputRandomNumber(Player player) {
-        player.sendSystemMessage(Component.literal("Your Number is " + getRandomNumber()));
-    }
-
-    private int getRandomNumber() {
-        return RandomSource.createNewThreadLocalInstance().nextInt(10);
-    }
-
-    /*
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn,
-                                                    World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        if (!worldIn.isRemote) {
-            if (hand.equals(EnumHand.MAIN_HAND)) {
-                Waypoint h = new Waypoint(playerIn, "home", Waypoints.HOME);
-                if (playerIn.isSneaking()) {
-                    h.setWaypoint();
-                    playerIn.addChatMessage(new TextComponentString(
-                            TextFormatting.GOLD + "Home location is set."));
-                } else {
-                    Location l = h.getWaypoint();
-                    if (l != null) {
-                        playerIn.setPositionAndUpdate(l.getX(), l.getY(),
-                                l.getZ());
-                        playerIn.addChatMessage(new TextComponentString(
-                                TextFormatting.GOLD
-                                        + "Teleporting to home location."));
-                    } else {
-                        playerIn.addChatMessage(new TextComponentString(
-                                TextFormatting.GOLD
-                                        + "Home location is not set."));
-                        playerIn.addChatMessage(new TextComponentString(
-                                TextFormatting.GOLD
-                                        + "To set home hold shift and right click."));
-                    }
-                }
-
-                h.destroy();
-                return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
-            }
-        }
-        return new ActionResult(EnumActionResult.PASS, itemStackIn);
-    } */
 }
