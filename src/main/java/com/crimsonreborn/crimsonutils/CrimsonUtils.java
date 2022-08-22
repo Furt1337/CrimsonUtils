@@ -2,6 +2,8 @@ package com.crimsonreborn.crimsonutils;
 
 import com.crimsonreborn.crimsonutils.block.ModBlocks;
 import com.crimsonreborn.crimsonutils.item.ModItems;
+import com.crimsonreborn.crimsonutils.world.feature.ModConfiguredFeatures;
+import com.crimsonreborn.crimsonutils.world.feature.ModPlacedFeatures;
 import com.crimsonreborn.mexdb.MexDB;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -32,6 +34,9 @@ public class CrimsonUtils {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+
+        ModConfiguredFeatures.register(modEventBus);
+        ModPlacedFeatures.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
