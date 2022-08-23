@@ -12,7 +12,7 @@ public class Waypoint {
 
 	public Location loc;
 	public String index, pName, uuid, waypointName, dim;
-	private MexDB db = CrimsonUtils.waypointDB;
+	private MexDB db = CrimsonUtils.WAYPOINT_DB;
 
 	public Waypoint(Player player, String waypointName, Waypoints wp) {
 		this.waypointName = waypointName;
