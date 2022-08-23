@@ -16,8 +16,8 @@ public class ModPlacedFeatures {
 
     public static final RegistryObject<PlacedFeature> ORE_CITRINE_PLACED = PLACED_FEATURES.register("ore_citrine_placed",
             () -> new PlacedFeature(ModConfiguredFeatures.ORE_CITRINE.getHolder().get(),
-                    commonOrePlacement(7, // VeinsPerChunk
-                            HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)))));
+                    commonOrePlacement(8, // VeinsPerChunk
+                            HeightRangePlacement.triangle(VerticalAnchor.absolute(10), VerticalAnchor.absolute(30)))));
 
     public static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {
         return List.of(p_195347_, InSquarePlacement.spread(), p_195348_, BiomeFilter.biome());
