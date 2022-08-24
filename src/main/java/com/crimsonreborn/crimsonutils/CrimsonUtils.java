@@ -25,7 +25,7 @@ import java.io.File;
 @Mod(CrimsonUtils.MODID)
 public class CrimsonUtils {
     public static final String MODID = "crimsonutils";
-    public static final String VERSION = "0.0.2";
+    public static final String VERSION = "0.0.2-1.19.2";
     public static final String MOD_LOADER = "forge";
     private static final Logger LOGGER = LogUtils.getLogger();
 
