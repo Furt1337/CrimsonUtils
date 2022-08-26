@@ -3,6 +3,8 @@ package com.crimsonreborn.crimsonutils.db;
 import com.crimsonreborn.crimsonutils.CrimsonUtils;
 import com.crimsonreborn.crimsonutils.utilities.Location;
 import com.crimsonreborn.mexdb.MexDB;
+import com.crimsonreborn.mexdb.exception.EmptyIndexException;
+import com.crimsonreborn.mexdb.system.Entry;
 import net.minecraft.world.entity.player.Player;
 
 /**
@@ -32,9 +34,9 @@ public class Waypoint {
 	}
 
 	public boolean setWaypoint() {
-		/*
+		Entry addHome = null;
 		try {
-			Entry addHome = new Entry(index);
+			addHome = new Entry(index);
 			addHome.addValue("name", pName);
 			addHome.addValue("dim", dim);
 			addHome.addValue("x", loc.getX());
@@ -44,10 +46,9 @@ public class Waypoint {
 			addHome.addValue("yaw", loc.getYaw());
 			db.addEntry(addHome);
 			return true;
-
 		} catch (EmptyIndexException e) {
-		} */
-		return false;
+			return false;
+		}
 	}
 
 	public boolean hasWaypoint() {
@@ -65,9 +66,7 @@ public class Waypoint {
 			l.setYaw(db.getFloat(index, "yaw"));
 			return l;
 		}
-
 		return null;
-
 	}
 
 	public boolean deleteWaypoint() {

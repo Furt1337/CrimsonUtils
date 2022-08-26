@@ -1,5 +1,6 @@
 package com.crimsonreborn.crimsonutils.utilities;
 
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 /**
@@ -15,9 +16,8 @@ public class Location {
 	}
 
 	public Location(Player player) {
-
-		this.dim = "booger";//player.worldObj.getWorldInfo().getWorldName();
-		//EntityPlayerMP p = (EntityPlayerMP) player;
+		ServerPlayer p = (ServerPlayer) player;
+		this.dim = p.getServer().getWorldData().getLevelName();
 		this.x = player.getX();
 		this.y = player.getY();
 		this.z = player.getZ();
